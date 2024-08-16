@@ -1,7 +1,6 @@
 from consts import TicketStatus
 from models import SupportTicket, User, UserBan
 from peewee import DoesNotExist
-from peewee import and_
 from typing import Sequence
 
 def ban(user: User, reason: str | None = None):
@@ -27,10 +26,7 @@ def is_banned(user: User) -> bool:
 def get_open_tickets(user: User) -> Sequence[SupportTicket]:
     """Returns all open tickets created by :obj:`User`"""
     query = SupportTicket.select().where(
-        and_(
-            SupportTicket.user == user,
-            SupportTicket.status == TicketStatus.OPEN
-        )
+        (SupportTicket.user == user) & (SupportTicket.status == TicketStatus.OPEN)
     )
     print(f"Got query: {query}")
     return query.execute()
