@@ -5,7 +5,7 @@ from callbacks import (
     cancel,
     error_handler,
     leave_chat,
-    open_tickets,
+    open_tickets_call,
     post_init,
     preprocess_update,
     process_user_ticket,
@@ -109,12 +109,12 @@ if __name__ == "__main__":
     )
     application.add_handler(
         CommandHandler(
-            "open", open_tickets, filters.Chat(chat_id=AUTHORIZED_GROUP_ID)
+            "open", open_tickets_call, filters.Chat(chat_id=AUTHORIZED_GROUP_ID)
         )
     )
     # open tickets list's buttons
     application.add_handler(
-        CallbackQueryHandler(open_tickets, pattern="^OPEN_TICKETS_")
+        CallbackQueryHandler(open_tickets_call, pattern="^OPEN_TICKETS_")
     )
     # ticket's buttons
     application.add_handler(

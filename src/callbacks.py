@@ -110,8 +110,10 @@ async def ticket(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
 
     db_user = User.get(User.id == user.id)
+    print(f"Got db user: {db_user}")
 
     open_tickets = services.user.get_open_tickets(db_user)
+    print(f"Got open tickets: {open_tickets}")
 
     if len(open_tickets) >= USER_OPEN_TICKETS_MAX:
         await message.reply_text(
@@ -467,7 +469,7 @@ async def set_staff_pseudonym(
 
 
 @monitor_callback
-async def open_tickets(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def open_tickets_call(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Lists open tickets for the staff member"""
     query_prefix = "OPEN_TICKETS_"
 

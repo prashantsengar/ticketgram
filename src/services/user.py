@@ -28,4 +28,5 @@ def get_open_tickets(user: User) -> Sequence[SupportTicket]:
     query = SupportTicket.select().where(
         SupportTicket.user == user & SupportTicket.status == TicketStatus.OPEN
     )
+    print(f"Got query: {query}")
     return query.execute()
